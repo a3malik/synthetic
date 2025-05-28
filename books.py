@@ -43,6 +43,8 @@ async def return_selected(path_parameter):
     '''Pass a title of the book as path_parameter'''
     return ([ {x['title']:x['about']} for x in BOOKS if x.get('title')==path_parameter][0])
 
+#@app.get("/bookshome/{dynamic_param}")
+#Uncomment Above and comment below to get @app.get("/booksbyquery/{author}/") working
 @app.get("/{dynamic_param}")
 async def return_dynamic_dict(dynamic_param):
    '''Same as path_parameter, but working just like an echo'''
@@ -50,7 +52,7 @@ async def return_dynamic_dict(dynamic_param):
 
 @app.get("/books/")
 async def return_with_query(param):
-    '''Make use of a query like q?param=value'''
+    '''Make use of a query like ?param=value'''
     l1=[ x['title'] for x in BOOKS if x['author'].casefold()==param.casefold()]
     return l1
 
@@ -77,3 +79,21 @@ async def delete_book(book_title):
         if BOOKS[i].get('title').casefold() == book_title.casefold():
             del BOOKS[i]
             break
+
+'''Get all books from a specific author using query or dynamic parameter'''
+@app.get("/books/byauthor/{author_name}")
+async def get_books_by_author(author_name):
+    return [ {x['title']:x['about']} 
+            for x in BOOKS if x.get('author').casefold() == author_name.casefold()]
+
+@app.get("/books/byauthor/")
+async def get_books_by_author_query(author_name):
+    return [ {x['author']:x['title']} 
+            for x in BOOKS if x.get('author').casefold() == author_name.casefold()]
+
+'''Add a function for both dynamic and query parameters together'''
+@app.get("/booksbyquery/{author}/")
+async def get_books_by_author_and_title(author,title):
+    return [ {x['author']:x['title']} for x in BOOKS 
+            if x['title'].casefold()==title.casefold() 
+            and x['author'].casefold()==author.casefold()]
