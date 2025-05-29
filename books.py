@@ -44,7 +44,8 @@ async def return_selected(path_parameter):
     return ([ {x['title']:x['about']} for x in BOOKS if x.get('title')==path_parameter][0])
 
 #@app.get("/bookshome/{dynamic_param}")
-#Uncomment Above and comment below to get @app.get("/booksbyquery/{author}/") working
+#Uncomment Above and comment below to get something like @app.get("/booksbyquery/") working
+#Or move @app.get("/booksbyquery/") before this /{dynamic_parm} endpoint
 @app.get("/{dynamic_param}")
 async def return_dynamic_dict(dynamic_param):
    '''Same as path_parameter, but working just like an echo'''
