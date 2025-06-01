@@ -116,6 +116,10 @@ async def update_book(book_request: SmallRequest):
             book.rating = book_request.rating
             return {"message": "Book updated successfully"}
 
+#The code below does not work because book_request is a SmallRequest object,
+#and it does not have get_book() method. So we end up appending SmallRequest
+#to SmallBook in the SMALLBOOKS list. Then subsequent requests on SMALLBOOKS
+#start throwing errors. After we have executed the PUT method once.
     '''for i in range(len(SMALLBOOKS)):
         if SMALLBOOKS[i].id == book_request.id:
             SMALLBOOKS[i] = book_request'''
