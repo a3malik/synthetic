@@ -1,3 +1,5 @@
+# Create database engine and session for SQLAlchemy
+# This file sets up the database connection and session management for the FastAPI application.
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
