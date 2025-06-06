@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException , Path 
 #what is dependency injection, implmented by Depends import above?
 from models import Todos
-from database import engine, SessionLocal
+from database import SessionLocal
 from sqlalchemy.orm import Session
 from typing import Annotated
 from starlette import status
@@ -25,6 +25,7 @@ class TodoRequest(BaseModel):
     description: str = Field(min_length=3,max_length=50)
     priority: int = Field(gt=0, lt=6)
     complete: bool
+    owner_id: int = Field(gt=0)
 
 @router.get("/",status_code=status.HTTP_200_OK)
 async def read_all(db: Annotated[Session, Depends(get_db)]):
@@ -56,6 +57,7 @@ async def update_todo_by_id( db: db_dependency,
     todo_model.description = todo_request.description
     todo_model.priority = todo_request.priority
     todo_model.complete = todo_request.complete
+    todo_model.owner_id = todo_request.owner_id
 
     db.add(todo_model)
     db.commit()
