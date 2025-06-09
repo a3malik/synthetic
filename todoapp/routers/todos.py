@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 from typing import Annotated
 from starlette import status
 from pydantic import BaseModel, Field
-from routers import auth
 from .auth import get_current_user
 
 router = APIRouter()
