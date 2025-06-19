@@ -73,6 +73,7 @@ class CreateUserRequest(BaseModel):
     last_name: str
     email: str
     role: str
+    phone_number: str
 
 
 class Token(BaseModel):
@@ -89,7 +90,8 @@ async def create_user(db: db_dependency, create_user_request: CreateUserRequest)
         last_name=create_user_request.last_name,
         email=create_user_request.email,
         role=create_user_request.role,
-        is_active=True  # Default value
+        is_active=True,
+        phone_number=create_user_request.phone_number
     )
     db.add(create_user_model)
     db.commit()
