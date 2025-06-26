@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, Path
-from database import SessionLocal
+from ..database import SessionLocal
 from sqlalchemy.orm import Session
 from typing import Annotated
 from .auth import get_current_user
 from starlette import status
-from models import Todos
+from ..models import Todos
 
 router = APIRouter(
     prefix='/admin',

@@ -1,8 +1,8 @@
 # Create database.
 from fastapi import APIRouter, Depends, HTTPException , Path 
 #what is dependency injection, implmented by Depends import above?
-from models import Todos
-from database import SessionLocal
+from ..models import Todos
+from ..database import SessionLocal
 from sqlalchemy.orm import Session
 from typing import Annotated
 from starlette import status
