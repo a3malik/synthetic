@@ -9,7 +9,10 @@ from starlette import status
 from pydantic import BaseModel, Field
 from .auth import get_current_user
 
-router = APIRouter()
+router = APIRouter(
+    prefix = '/todos',
+    tags = ['todos']
+)
 
 def get_db():
     db = SessionLocal()
@@ -37,7 +40,7 @@ async def read_all(user: user_dependency, db: db_dependency):
     return db.query(Todos).filter(Todos.owner_id == user.get('id')).all()
 
 
-@router.get("/todos/{todo_id}",status_code=status.HTTP_200_OK)
+@router.get("/todo/{todo_id}",status_code=status.HTTP_200_OK)
 async def read_todo_by_id(user: user_dependency, db: db_dependency, todo_id: int=Path(gt=0)):
     if user is None:
         raise HTTPException(status_code=401, detail='Authentication Failed')
