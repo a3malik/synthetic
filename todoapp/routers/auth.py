@@ -43,6 +43,10 @@ templates = Jinja2Templates(directory="Todoapp/templates")
 def render_login_page(request: Request):
     return templates.TemplateResponse("login.html",{"request":request})
 
+@router.get("/register")
+def render_register_page(request: Request):
+    return templates.TemplateResponse("register.html",{"request":request})
+
 ### Endpoints ###
 def authenticate_user(username: str, password: str, db):
     user = db.query(Users).filter(Users.username == username).first()
